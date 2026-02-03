@@ -1343,7 +1343,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Fallback: Copier le lien
       try {
         await navigator.clipboard.writeText(window.location.href);
-        showToast('Lien copié !', '📋');
+        showToast('Lien copié !', '���');
       } catch (clipboardErr) {
         showToast('Utilisez le menu du navigateur', 'ℹ️');
       }
@@ -1503,5 +1503,9 @@ document.addEventListener('DOMContentLoaded', function() {
     loopStars();
   });
 </script>
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
