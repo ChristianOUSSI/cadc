@@ -75,6 +75,7 @@ html {
   border: 1px solid var(--theme-border);
   box-shadow: 0 8px 32px var(--theme-shadow);
   transition: all 0.3s ease;
+  will-change: transform, box-shadow;
 }
 
 .contact .modal:hover {
@@ -86,6 +87,11 @@ html {
   padding: 0;
   border-top: 3px solid var(--theme-accent);
   padding-top: 20px;
+  /* Centrage du contenu */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .contact--info .modal--information a {
@@ -148,7 +154,7 @@ html {
 
 /* Transitions fluides pour l'ergonomie */
 a, button, .btn, .card, input, textarea, .feature-card {
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* Amélioration de la lisibilité des paragraphes */
@@ -164,7 +170,7 @@ p {
 
 /* Amélioration des boutons */
 button, a[href*="wa.me"], a[href*="mailto:"] {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 /* Intro banner amélioré */
@@ -179,6 +185,7 @@ button, a[href*="wa.me"], a[href*="mailto:"] {
   background-color: var(--theme-card);
   border: 1px solid var(--theme-border);
   transition: all 0.3s ease;
+  contain: content; /* Optimisation du rendu : isole le contenu pour éviter les repaints globaux */
 }
 
 .hire-card:hover {
@@ -286,7 +293,7 @@ button, a[href*="wa.me"], a[href*="mailto:"] {
 .header {
   background: transparent;
   box-shadow: none;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header--logo {
@@ -445,30 +452,57 @@ button, a[href*="wa.me"], a[href*="mailto:"] {
 
   /* 4. Ajustement Section Work (Équipe) */
   .work--lockup .slider {
-    flex-direction: column;
-    height: auto;
+    min-height: 400px;
     padding-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .work--lockup .slider--item {
     width: 100%;
     max-width: 320px;
-    margin: 0 auto 40px !important;
-    opacity: 1 !important;
+    margin: 0 auto !important;
+    display: none !important;
     transform: none !important;
-    display: block !important;
+    transition: opacity 0.3s ease;
   }
 
+  /* Afficher uniquement l'élément actif */
+  .work--lockup .slider--item.slider--item-center {
+    opacity: 1 !important;
+    display: block !important;
+  }
   .slider--prev,
   .slider--next {
-    display: none !important; /* On cache les flèches sur mobile */
+    display: flex !important; /* Afficher les flèches */
+    top: 50% !important;
+    transform: tr
   }
+  
+  .slider--prev { left: 10px !important; }
+  .slider--next { right: 10px !important; }
 
   /* 5. Ajustement Section About */
   .about--banner {
     height: auto;
     padding: 80px 20px;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about--banner img {
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+    margin: 30px auto;
+    display: block;
+  }
+
+  .about--banner .btn-clients {
+    margin: 20px auto;
+    display: inline-flex;
   }
 
   .about--options {
@@ -538,8 +572,8 @@ button, a[href*="wa.me"], a[href*="mailto:"] {
     margin: 20px auto !important;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch; /* Permet au contenu de prendre toute la largeur */
+    justify-content: flex-start; /* Aligne le contenu en haut */
     width: 100% !important;
   }
 
@@ -938,6 +972,390 @@ button, a[href*="wa.me"], a[href*="mailto:"] {
 .btn-clients:hover svg { left: 10px; }
 
 /* ============================================
+   THÈME FUTURISTE - "Ecrivez nous"
+   ============================================ */
+
+/* 1. Police futuriste pour "Ecrivez-nous" et la section cible */
+.cta,
+.side-nav li:nth-child(5) span,
+.outer-nav li:nth-child(5) {
+  font-family: 'Oxanium', sans-serif !important;
+}
+
+.hire h2,
+.hire-card h3 {
+  font-family: 'Oxanium', sans-serif;
+}
+
+.hire h2 {
+  font-family: 'Russo One', sans-serif;
+  font-size: 42px;
+  text-shadow: 0 0 5px rgba(0, 210, 255, 0.7), 
+               0 0 10px rgba(0, 210, 255, 0.5), 
+               0 0 20px rgba(0, 210, 255, 0.3);
+  animation: textFlicker 5s linear infinite;
+}
+
+@keyframes textFlicker {
+  0%, 19.9%, 22%, 62.9%, 64%, 64.9%, 70%, 100% {
+    opacity: 0.99;
+    text-shadow: 0 0 5px rgba(0, 210, 255, 0.7), 
+                 0 0 10px rgba(0, 210, 255, 0.5), 
+                 0 0 20px rgba(0, 210, 255, 0.3);
+  }
+  20%, 21.9%, 63%, 63.9%, 65%, 69.9% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+/* 2. Cartes futuristes */
+.hire-card {
+  position: relative;
+  overflow: hidden; /* Important pour le scan-line */
+  border-color: rgba(0, 210, 255, 0.3);
+  background: linear-gradient(145deg, rgba(20, 30, 60, 0.5), rgba(10, 15, 30, 0.7));
+}
+
+.hire-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d2ff, transparent);
+  transform: translateY(-100%);
+  transition: transform 0.5s 0.5s ease-out;
+}
+
+.hire-card:hover::after {
+  transform: translateY(2000%); /* Fait bouger la ligne vers le bas */
+  transition: transform 2s ease-in-out;
+}
+
+.hire-card:hover {
+  border-color: #00d2ff;
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.4), 
+              inset 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+/* 4. Icônes Futuristes & Animations */
+.hire-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  height: 60px;
+}
+
+.hire-icon svg {
+  width: 48px;
+  height: 48px;
+  stroke: #00d2ff;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: transform, filter, stroke;
+}
+
+/* 5. Particules Interactives */
+#hire-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Permet de cliquer à travers */
+}
+
+.hire h2, 
+.hire--grid {
+  position: relative;
+  z-index: 2; /* Au-dessus des particules */
+}
+
+/* Animation d'entrée (Load) */
+.hire-card .hire-icon svg {
+  animation: iconTechLoad 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+/* Délais en cascade pour l'entrée */
+.hire-card:nth-child(1) .hire-icon svg { animation-delay: 0.1s; }
+.hire-card:nth-child(2) .hire-icon svg { animation-delay: 0.2s; }
+.hire-card:nth-child(3) .hire-icon svg { animation-delay: 0.3s; }
+.hire-card:nth-child(4) .hire-icon svg { animation-delay: 0.4s; }
+.hire-card:nth-child(5) .hire-icon svg { animation-delay: 0.5s; }
+.hire-card:nth-child(6) .hire-icon svg { animation-delay: 0.6s; }
+
+@keyframes iconTechLoad {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+    stroke: #ffffff;
+    filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
+  60% {
+    transform: scale(1.2) rotate(10deg);
+    stroke: #00d2ff;
+    filter: drop-shadow(0 0 20px rgba(0, 210, 255, 1));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    stroke: #00d2ff;
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+  }
+}
+
+.hire-card h3 {
+  color: #00d2ff;
+  text-shadow: 0 0 5px rgba(0, 210, 255, 0.5);
+}
+
+/* 3. Fond de la section */
+.hire {
+  background-image: 
+    linear-gradient(rgba(12, 12, 12, 0.5), rgba(12, 12, 12, 0.5)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%230f33ff' fill-opacity='0.1'%3E%3Crect x='0' y='0' width='100' height='1'/%3E%3Crect x='0' y='0' width='1' height='100'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Animation au survol (Hover) */
+.hire-card:hover .hire-icon svg {
+  stroke: #ffffff;
+  filter: drop-shadow(0 0 15px rgba(0, 210, 255, 1));
+  transform: scale(1.15) translateY(-5px);
+  animation: iconHoverPulse 2s infinite alternate;
+}
+
+@keyframes iconHoverPulse {
+  0% { filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.8)); }
+  100% { filter: drop-shadow(0 0 25px rgba(0, 210, 255, 1)); }
+}
+
+/* ============================================
+   PAGES MEMBRES ÉQUIPE - STYLES UNIQUES
+   ============================================ */
+
+/* Layout Général */
+.member-page {
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.page-header-simple {
+  padding: 20px 0;
+}
+
+.back-btn {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+.back-btn:hover { color: #fff; }
+
+.member-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Hero Section */
+.member-hero {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.member-photo-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 30px;
+}
+
+.member-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.member-hero h1 {
+  font-family: 'Russo One', sans-serif;
+  font-size: 48px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  backdrop-filter: blur(5px);
+}
+
+.member-bio {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Grid Layout */
+.member-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 768px) {
+  .member-grid { grid-template-columns: 1fr; gap: 40px; }
+  .member-hero h1 { font-size: 36px; }
+}
+
+.member-section h3 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 24px;
+  margin-bottom: 25px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Timeline Cards */
+.timeline-card {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border-left: 4px solid rgba(255,255,255,0.3);
+  transition: transform 0.3s;
+}
+.timeline-card:hover { transform: translateX(5px); background: rgba(255,255,255,0.08); }
+.timeline-card .date { font-size: 12px; opacity: 0.6; display: block; margin-bottom: 5px; }
+.timeline-card h4 { margin: 0 0 5px 0; font-size: 18px; }
+.timeline-card .company { font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 8px; font-size: 14px; }
+.timeline-card p { font-size: 14px; margin: 0; opacity: 0.8; }
+
+/* Skills & Projects */
+.skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.skill-tags span {
+  background: rgba(255,255,255,0.1);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.project-list { list-style: none; padding: 0; }
+.project-list li {
+  margin-bottom: 15px;
+  padding-left: 20px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.project-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.5);
+}
+
+.member-footer { text-align: center; }
+.contact-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  background: #fff;
+  color: #000;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.contact-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+/* --- STYLES SPÉCIFIQUES PAR MEMBRE --- */
+
+/* 1. Christian (Tech / Code) */
+.bg-christian {
+  background: radial-gradient(circle at top right, rgba(15, 51, 255, 0.2), transparent 40%),
+              linear-gradient(135deg, #050a14 0%, #0a1020 100%);
+}
+.bg-christian .tech-ring {
+  position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+  border: 2px dashed #5a7cff; border-radius: 50%;
+  animation: spin 20s linear infinite;
+}
+.bg-christian .timeline-card { border-left-color: #5a7cff; }
+.bg-christian .skill-tags span { background: rgba(90, 124, 255, 0.2); color: #aaddff; }
+
+/* 2. Marc (Infra / Dark) */
+.bg-marc {
+  background: linear-gradient(to bottom, #1a1a1a, #000000);
+  background-image: radial-gradient(#333 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.bg-marc .tech-ring.ring-square {
+  border-radius: 10px; border: 2px solid #00ff88;
+  transform: rotate(45deg);
+}
+.bg-marc .member-photo { border-radius: 10px; }
+.bg-marc .role-badge { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid #00ff88; }
+.bg-marc .timeline-card { border-left-color: #00ff88; background: rgba(0,0,0,0.6); }
+.bg-marc .contact-btn { background: #00ff88; color: #000; }
+
+/* 3. Axel (Design / Gradient) */
+.bg-axel {
+  background: linear-gradient(135deg, #2c3e50 0%, #000000 100%);
+}
+.bg-axel .member-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 400px;
+  background: linear-gradient(45deg, #ff00cc, #333399);
+  opacity: 0.2; z-index: -1; clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+.bg-axel .tech-ring.ring-gradient {
+  background: linear-gradient(45deg, #ff00cc, #333399);
+  z-index: 1; border: none; padding: 4px;
+}
+.bg-axel .role-badge { background: linear-gradient(90deg, #ff00cc, #333399); border: none; }
+.bg-axel .timeline-card { border-left-color: #ff00cc; }
+
+/* 4. Sarah (Growth / Vibrant) */
+.bg-sarah {
+  background: linear-gradient(135deg, #23074d 0%, #cc5333 100%);
+}
+.bg-sarah .tech-ring.ring-pulse {
+  border: 2px solid #ffcc00;
+  animation: pulseRing 2s infinite;
+}
+.bg-sarah .role-badge { background: rgba(255, 204, 0, 0.2); color: #ffcc00; border: 1px solid #ffcc00; }
+.bg-sarah .timeline-card { border-left-color: #ffcc00; }
+.bg-sarah .contact-btn { background: #ffcc00; color: #23074d; }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes pulseRing { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.2); opacity: 0; } }
+/* ============================================
    AMÉLIORATIONS NATIVE FEEL (2026)
    ============================================ */
 
@@ -1014,6 +1432,7 @@ body::before {
   animation: twinkleStars 4s ease-in-out infinite alternate, rotateSky 240s linear infinite;
   filter: var(--star-filter);
   z-index: 0;
+  will-change: transform, opacity; /* Force l'accélération matérielle GPU */
 }
 
 @keyframes twinkleStars {
@@ -1062,6 +1481,7 @@ body::before {
   opacity: 0;
   z-index: 0;
   will-change: transform, opacity;
+  pointer-events: none;
 }
 
 @keyframes shooting {
